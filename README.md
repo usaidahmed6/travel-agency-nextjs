@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Voyara Travels — Travel Agency Website
 
-## Getting Started
+A modern, fully responsive travel agency website built with **Next.js (App Router)**, **Tailwind CSS** and **GSAP**.
+It offers four services: **Visa Services, Flight Ticket Booking, Hotel Booking and Car Rental**, each with a working
+search form backed by mock data. There is no backend; all searches, bookings and the contact form are simulated on the client.
 
-First, run the development server:
+> Built as the Frontend Developer (Next.js) technical assessment for Bizwave Consultancy Pvt. Ltd.
+
+## Features
+
+- **Hero** with GSAP intro timeline (masked word-by-word headline, background zoom, floating booking cards) and scroll parallax
+- **Tabbed booking panel** with four functional search forms:
+  - **Flights:** round-trip / one-way, airport swap, travellers, cabin class, validation, sort by cheapest / fastest
+  - **Hotels:** destination, check-in/out (night count), guests, star filter, total stay price
+  - **Car rental:** pick-up city, dates (day count), car type filter
+  - **Visa:** nationality, destination country, visa type; shows processing time, validity, fee and required documents
+  - Loading skeletons, empty states, inline errors and a "Reserved" select state
+- **Service cards** with GSAP hover (card lift, image zoom, icon spin); "Book now" opens the matching search tab
+- **Animated counters** (GSAP + ScrollTrigger) and a "Why choose us" block
+- **Popular destinations** grid with a GSAP cursor-follow 3D tilt on hover
+- **Testimonials**, **contact form** with client-side validation and success state, and a **footer**
+- **Scroll reveal** animations on every section via a reusable `useReveal` hook (ScrollTrigger.batch)
+- Respects `prefers-reduced-motion`; content stays visible when JavaScript is disabled
+- Responsive across mobile, tablet and desktop, with a mobile navigation menu
+
+## Tech stack
+
+| Tool | Purpose |
+| --- | --- |
+| Next.js 15 (App Router) + React 19 | Framework, static rendering |
+| TypeScript | Type safety |
+| Tailwind CSS v4 | Styling and design tokens |
+| GSAP 3 + ScrollTrigger + `@gsap/react` | Animations |
+| `next/image` + Unsplash | Optimised remote images |
+| `next/font` (Plus Jakarta Sans, Playfair Display) | Typography |
+
+## Getting started
+
+Requirements: Node.js 18.18+ (Node 20+ recommended) and npm.
 
 ```bash
+git clone https://github.com/usaidahmed6/travel-agency-nextjs.git
+cd travel-agency-nextjs
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── layout.tsx          # Fonts, metadata, root layout
+│   ├── page.tsx            # Composes the home page sections
+│   └── globals.css         # Tailwind theme tokens and shared form styles
+├── components/
+│   ├── layout/             # Navbar, Footer, Logo
+│   ├── sections/           # Hero, SearchPanel, Services, Stats, Destinations, Testimonials, Contact
+│   ├── search/             # FlightSearch, HotelSearch, CarSearch, VisaSearch + shared form/result pieces
+│   └── ui/                 # Button, Icon, Rating, Counter, SectionHeading
+├── data/
+│   ├── types.ts            # Domain types
+│   ├── content.ts          # Services, destinations, testimonials, stats, contact info
+│   └── mock.ts             # Mock flights (generated per route), hotels, cars and visa options
+├── hooks/
+│   └── useReveal.ts        # GSAP scroll-reveal hook
+└── lib/
+    ├── gsap.ts             # Registers GSAP plugins once
+    └── utils.ts            # cn, formatPrice, image URL and date helpers
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- All prices, availability and bookings are mock data; nothing is sent to a server.
+- Flight results are generated deterministically from the selected route, so any airport pair returns believable results.
+- Images are served from Unsplash through `next/image` (allowed in `next.config.ts`).
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on Vercel: import the repository in Vercel and keep the default Next.js settings. No environment variables are needed.
