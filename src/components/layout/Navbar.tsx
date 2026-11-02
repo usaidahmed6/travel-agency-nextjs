@@ -25,53 +25,56 @@ export function Navbar() {
   const solid = scrolled || open;
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        solid ? "bg-white/90 py-3 shadow-sm backdrop-blur-lg" : "bg-transparent py-5",
-      )}
-    >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Logo light={!solid} />
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+          open ? "bg-white py-3" : scrolled ? "bg-white/90 py-3 shadow-sm backdrop-blur-lg" : "bg-transparent py-5",
+        )}
+      >
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Logo light={!solid} />
 
-        <ul className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={cn(
-                  "group relative text-sm font-medium transition-colors",
-                  solid ? "text-slate-700 hover:text-brand" : "text-white/90 hover:text-white",
-                )}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-              </a>
-            </li>
-          ))}
-        </ul>
+          <ul className="hidden items-center gap-8 lg:flex">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={cn(
+                    "group relative text-sm font-medium transition-colors",
+                    solid ? "text-slate-700 hover:text-brand" : "text-white/90 hover:text-white",
+                  )}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <div className="hidden lg:block">
-          <LinkButton href="#contact" variant={solid ? "primary" : "light"} className="px-5 py-2.5">
-            Get a free quote
-          </LinkButton>
-        </div>
+          <div className="hidden lg:block">
+            <LinkButton href="#contact" variant={solid ? "primary" : "light"} className="px-5 py-2.5">
+              Get a free quote
+            </LinkButton>
+          </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          className={cn("rounded-full p-2 lg:hidden", solid ? "text-ink" : "text-white")}
-        >
-          <Icon name={open ? "close" : "menu"} size={26} />
-        </button>
-      </nav>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className={cn("rounded-full p-2 lg:hidden", solid ? "text-ink" : "text-white")}
+          >
+            <Icon name={open ? "close" : "menu"} size={26} />
+          </button>
+        </nav>
+      </header>
 
+      {/* Kept outside <header>: its backdrop-filter would make this fixed panel position relative to the header */}
       <div
         className={cn(
-          "fixed inset-x-0 top-[60px] bottom-0 bg-white px-6 pt-6 transition-all duration-300 lg:hidden",
-          open ? "visible opacity-100" : "invisible opacity-0",
+          "fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto border-t border-slate-100 bg-white px-6 pt-6 pb-10 transition-all duration-300 lg:hidden",
+          open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0",
         )}
       >
         <ul className="flex flex-col gap-1">
@@ -91,6 +94,6 @@ export function Navbar() {
           Get a free quote
         </LinkButton>
       </div>
-    </header>
+    </>
   );
 }
