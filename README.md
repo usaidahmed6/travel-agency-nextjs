@@ -6,6 +6,9 @@ search form backed by mock data. There is no backend; all searches, bookings and
 
 > Built as the Frontend Developer (Next.js) technical assessment for Bizwave Consultancy Pvt. Ltd.
 
+**Live demo:** https://travel-agency-nextjs-psi.vercel.app  
+**Repository:** https://github.com/usaidahmed6/travel-agency-nextjs
+
 ## Features
 
 - **Hero** with GSAP intro timeline (masked word-by-word headline, background zoom, floating booking cards) and scroll parallax
